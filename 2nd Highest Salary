@@ -1,0 +1,2 @@
+select max(salary) from tblEmployee where salary < (select max(Salary) from tblEmployee) 
+ 
