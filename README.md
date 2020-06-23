@@ -1,0 +1,2 @@
+# sqlPractice
+SQL self practice
