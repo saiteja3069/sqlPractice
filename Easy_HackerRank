@@ -97,7 +97,64 @@ Ans:
 
 SELECT NAME FROM STUDENTS WHERE MARKS > 75 ORDER BY  RIGHT(NAME,3), ID;
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-18) 
+18) Write a query that prints a list of employee names (i.e.: the name attribute) from the Employee table in alphabetical order.
+Ans:
+
+SELECT name from Employee order by name;
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+19) Write a query that prints a list of employee names (i.e.: the name attribute) for employees in Employee having a salary greater than 2000  per month who have been employees for less than 10 months. Sort your result by ascending employee_id.
+Ans:
+
+SELECT name from Employee where salary > 2000 and months <10 order by employee_id;
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+20) Write a query identifying the type of each record in the TRIANGLES table using its three side lengths. Output one of the following statements for each record in the table:
+
+Equilateral: It's a triangle with 3 sides of equal length.
+Isosceles: It's a triangle with 2 sides of equal length.
+Scalene: It's a triangle with 3 sides of differing lengths.
+Not A Triangle: The given values of A, B, and C don't form a triangle.
+Ans:
+
+SELECT CASE
+WHEN A+B<=C OR B+C<=A OR A+C<=B THEN 'Not A Triangle'
+WHEN A<>B AND B<>C AND A<>C THEN 'Scalene'
+WHEN A=B and B=C THEN 'Equilateral'
+ELSE 'Isosceles'
+END
+FROM triangles;
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+21) Query a count of the number of cities in CITY having a Population larger 100000 than.
+Ans:
+select count(*) from CITY where population > 100000
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+22) Query the total population of all cities in CITY where District is California.
+Ans:
+select sum(population) from city where district='California';
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+23) Query the average population of all cities in CITY where District is California.
+Ans:
+select avg(population) from city where district='California';
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+24) Query the average population for all cities in CITY, rounded down to the nearest integer.
+Ans: 
+select round(avg(population)) from city;
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+25) Query the sum of the populations for all Japanese cities in CITY. The COUNTRYCODE for Japan is JPN.
+Ans:
+select sum(population) from city where countrycode='JPN';
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+26) Query the difference between the maximum and minimum populations in CITY.
+Ans:
+select max(population)-min(population) from city;
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+27) Write a query calculating the amount of error (i.e.:  average monthly salaries), and round it up to the next integer.
+Ans:
+select  ceil((avg(salary)) - avg(replace(salary, '0', ''))) from Employees
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
 
 
 
