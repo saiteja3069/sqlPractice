@@ -1,0 +1,71 @@
+1) Write a SQL query for a report that provides the following information for each person in the Person table, regardless if there is an address for each of those people:
+FirstName, LastName, City, State
+Ans:
+select p.FirstName, p.LastName, a.City, a.State
+from Person as p
+left join Address as a
+on p.PersonId = a.PersonId;
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+2) Write a SQL query to get the second highest salary from the Employee table
+Ans:
+select max(salary) as  'SecondHighestSalary' from Employee where salary < (select max(Salary) from Employee) limit 1;
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+3) Given the Employee table, write a SQL query that finds out employees who earn more than their managers. For the above table, Joe is the only employee who earns more than his manager.
+Ans:
+select a.name as Employee
+from Employee as a, Employee as b
+where a.salary > b.salary and a.ManagerId = b.id;
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+4) Write a SQL query to find all duplicate emails in a table named Person.
+Ans:
+select Email 
+from Person 
+having count(Email) > 1
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+5) Suppose that a website contains two tables, the Customers table and the Orders table. Write a SQL query to find all customers who never order anything.
+Ans:
+select name as Customers 
+from Customers
+left join Orders
+on Customers.id = Orders.Customerid
+where Orders.Customerid is NULL;
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+6) Write a SQL query to delete all duplicate email entries in a table named Person, keeping only unique emails based on its smallest Id.
+Ans:
+delete p1
+from person as p1, person as p2
+where p1.email=p2.email and p1.id > p2.id;
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+7) Given a Weather table, write a SQL query to find all dates' Ids with higher temperature compared to its previous (yesterday's) dates.
+Ans:
+select w1.id
+from weather as w1, weather as w2
+where w1.temperature > w2.temperature and w1.RecordDate-1 = w2.RecordDate
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+8) A country is big if it has an area of bigger than 3 million square km or a population of more than 25 million.
+
+Write a SQL solution to output big countries' name, population and area.
+Ans:
+select name,population,area from World where area > 3000000 or population > 25000000
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+9) There is a table courses with columns: student and class
+Please list out all classes which have more than or equal to 5 students.
+Ans:
+select class from courses having count(class) >4;
+select class from courses group by class having count(distinct(student)) >4;
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+10) X city opened a new cinema, many people would like to go to this cinema. The cinema also gives out a poster indicating the movies’ ratings and descriptions.
+Please write a SQL query to output movies with an odd numbered ID and a description that is not 'boring'. Order the result by rating.
+Ans:
+select id,movie,description,rating from cinema where id % 2 <> 0 and description <> 'boring' order by rating desc;
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+11) Given a table salary, such as the one below, that has m=male and f=female values. Swap all f and m values (i.e., change all f values to m and vice versa) with a single update statement and no intermediate temp table.
+Note that you must write a single update statement, DO NOT write any select statement for this problem.
+Ans:
+UPDATE salary SET sex = CASE WHEN sex ='m' THEN 'f' ELSE 'm' END;
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
