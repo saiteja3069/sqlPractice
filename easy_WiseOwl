@@ -1,0 +1,12 @@
+1) Create a query to list out the following columns from the tblEvent table, with the most recent first (for which you'll need to use an ORDER BY clause):
+The event name
+The event date
+Ans:
+select EventName, EventDate from tblEvent order by EventDate Desc;
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+2) Write a query to show the first 5 events (in date order) from the tblEvent table:
+Ans:
+select TOP 5 EventName as 'What', EventDetails as 'Details' from tblEvent order by EventDate;
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+3) 
+
