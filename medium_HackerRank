@@ -62,6 +62,7 @@ ORDER BY a.company_code;
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 6) A median is defined as a number separating the higher half of a data set from the lower half. Query the median of the Northern Latitudes (LAT_N) from STATION and round your answer to 4 decimal places.
 Ans:
+
 SELECT
 CONVERT(DECIMAL(11,4),(
  (SELECT MAX(LAT_N) FROM
@@ -71,5 +72,27 @@ CONVERT(DECIMAL(11,4),(
    (SELECT TOP 50 PERCENT LAT_N FROM STATION ORDER BY LAT_N DESC) AS TopHalf)
 ) / 2)
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-7) 
+7) You are given two tables: Students and Grades. Students contains three columns ID, Name and Marks.
+Grades contains the following data:
+Ketty gives Eve a task to generate a report containing three columns: Name, Grade and Mark. Ketty doesn't want the NAMES of those students who received a grade lower than 8. The report must be in descending order by grade -- i.e. higher grades are entered first. If there is more than one student with the same grade (8-10) assigned to them, order those particular students by their name alphabetically. Finally, if the grade is lower than 8, use "NULL" as their name and list them by their grades in descending order. If there is more than one student with the same grade (1-7) assigned to them, order those particular students by their marks in ascending order.
+Write a query to help Eve.
+Ans:
+
+select case when g.grade>= 8 then s.name else NULL end, g.grade, s.marks from students s join grades g where s.marks between g.min_mark and g.max_mark order by g.grade desc, s.name;
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+8) Julia just finished conducting a coding contest, and she needs your help assembling the leaderboard! Write a query to print the respective hacker_id and name of hackers who achieved full scores for more than one challenge. Order your output in descending order by the total number of challenges in which the hacker earned a full score. If more than one hacker received full scores in same number of challenges, then sort them by ascending hacker_id.
+Ans:
+
+SELECT h.hacker_id, h.name
+FROM Submissions AS s 
+JOIN Hackers AS h 
+ON s.hacker_id = h.hacker_id
+JOIN Challenges AS c ON s.challenge_id = c.challenge_id
+JOIN Difficulty AS d ON c.difficulty_level = d.difficulty_level
+WHERE s.score = d.score
+GROUP BY h.hacker_id, h.name HAVING COUNT(*)>1 
+ORDER BY COUNT(*) DESC, h.hacker_id;
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
