@@ -24,5 +24,52 @@ Ans:
 select concat(name,'(',substr(occupation,1,1),')') from occupations order by name; 
 select concat('There are a total of ',count(occupation),' ',lower(occupation), 's.') from occupations group by occupation order by count(occupation),occupation;
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-4) 
+4) You are given a table, BST, containing two columns: N and P, where N represents the value of a node in Binary Tree, and P is the parent of N.
+Write a query to find the node type of Binary Tree ordered by the value of the node. Output one of the following for each node:
+Root: If node is root node.
+Leaf: If node is leaf node.
+Inner: If node is neither root nor leaf node.
+Ans:
+
+SELECT N,
+CASE
+WHEN P is NULL THEN 'Root'
+WHEN N in (SELECT P FROM BST) THEN 'Inner'
+ELSE 'Leaf'
+END
+FROM BST
+ORDER BY N;
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+5) Amber's conglomerate corporation just acquired some new companies. Each of the companies follows this hierarchy: 
+Given the table schemas below, write a query to print the company_code, founder name, total number of lead managers, total number of senior managers, total number of managers, and total number of employees. Order your output by ascending company_code.
+Note:
+The tables may contain duplicate records.
+The company_code is string, so the sorting should not be numeric. For example, if the company_codes are C_1, C_2, and C_10, then the ascending company_codes will be C_1, C_10, and C_2.
+Ans:
+
+SELECT c.company_code, c.founder, COUNT(DISTINCT l.lead_manager_code), COUNT(DISTINCT s.senior_manager_code), COUNT(DISTINCT m.manager_code), COUNT(DISTINCT e.employee_code) 
+FROM Company as c
+JOIN Lead_manager as l 
+ON c.company_code = l.company_code 
+JOIN Senior_manager as s
+ON l.lead_manager_code = s.lead_manager_code 
+JOIN Manager as m
+ON s.senior_manager_code = m.senior_manager_code
+JOIN Employee as e
+ON m.manager_code = e.manager_code
+GROUP BY a.company_code,a.founder
+ORDER BY a.company_code;
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+6) A median is defined as a number separating the higher half of a data set from the lower half. Query the median of the Northern Latitudes (LAT_N) from STATION and round your answer to 4 decimal places.
+Ans:
+SELECT
+CONVERT(DECIMAL(11,4),(
+ (SELECT MAX(LAT_N) FROM
+   (SELECT TOP 50 PERCENT LAT_N FROM STATION ORDER BY LAT_N) AS BottomHalf)
+ +
+ (SELECT MIN(LAT_N) FROM
+   (SELECT TOP 50 PERCENT LAT_N FROM STATION ORDER BY LAT_N DESC) AS TopHalf)
+) / 2)
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+7) 
 
